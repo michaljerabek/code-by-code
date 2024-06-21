@@ -1,0 +1,254 @@
+<p>The environment is optimized for modifying HTML/SVG/XML with <a href="https://cheerio.js.org">Cheerio.js</a>. So there is available <code>$</code> function to select elements and at the end the modified code is automatically returned by <code>html</code> or <code>xml</code> method. Example:</p>
+<pre>$("p").addClass("some-class");</pre>
+
+<p>But you can write any code you want to modify the selected content. For such usage there is <code>CONTENT</code> constant with the selected text. Also you have to either rewrite the original <code>getModifiedContent</code> function to return your modified content or return a <code>String | Number</code> (or a <code>Promise</code> resolving as a <code>String | Number</code>) at the end of your code. Example:</p>
+<pre>getModifedContent = () => CONTENT.toUpperCase();
+// or
+return CONTENT.toUpperCase();
+// or
+return new Promise(resolve => {
+    resolve(CONTENT.toUpperCase());
+});</pre>
+
+<p>If your code is asynchronous you can use <code>async</code>/<code>await</code> or you have to set <code>isAsync = true;</code> at the top of your code and at the end call <code>done</code> function, optionally with an error message. Example:</p>
+<pre>await doSomethingAsync();</pre>
+<p>Or:</p>
+<pre>isAsync = true;
+doSomethingAsync(error => {
+    if (error) done("Something failed!");
+    done();
+});</pre>
+<p>If it's necessary to do some clean up when the execution is being aborted, you can assign a handler with <code>onAbort</code> function. Example:</p>
+<pre>onAbort(() => clearTimeout(timeout));</pre>
+<p>The code is executed sequentially selection by selection.</p>
+
+<p>Available variables, constants and functions:</p>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>cheerio</td>
+        <td>Cheerio module.</td>
+    </tr>
+    <tr>
+        <td>$</td>
+        <td>Cheerio with loaded content.</td>
+    </tr>
+    <tr>
+        <td>jsBeautify</td>
+        <td><a href="https://github.com/beautifier/js-beautify">jsBeautify</a> module.</td>
+    </tr>
+    <tr>
+        <td>htmlBeautify</td>
+        <td>jsBeautify.html</td>
+    </tr>
+    <tr>
+        <td>CONTENT</td>
+        <td>Content of current selection.</td>
+    </tr>
+    <tr>
+        <td>COMMAND</td>
+        <td>Command being executed ("rewrite" | "output").</td>
+    </tr>
+    <tr>
+        <td>PROJECT_DIR</td>
+        <td>Path to the project directory.</td>
+    </tr>
+    <tr>
+        <td>FILE_PATH</td>
+        <td>Path to the current file.</td>
+    </tr>
+    <tr>
+        <td>FILE_NAME</td>
+        <td>Name of the current file.</td>
+    </tr>
+    <tr>
+        <td>SELECTION</td>
+        <td>Current selection, <code>Object</code>. Contains <code>content</code> and <code>language</code> properties.</td>
+    </tr>
+    <tr>
+        <td>SELECTIONS</td>
+        <td><code>Array</code> of all selections.</td>
+    </tr>
+    <tr>
+        <td>INDEX</td>
+        <td>Index of current selection.</td>
+    </tr>
+    <tr>
+        <td>LANGUAGE</td>
+        <td>Language (CodeMirror's <code>mode</code>) of the code for current selection.</td>
+    </tr>
+    <tr>
+        <td>STORAGE</td>
+        <td><code>Object</code> to store data, user input or anything else for the following selections.</td>
+    </tr>
+    <tr>
+        <td>ENV</td>
+        <td>Current environment ("phoenix"<span class="mj-codebycode__node-only"> | "node"</span>).</td>
+    </tr>
+    <tr>
+        <td>XML</td>
+        <td>Is <code>xmlMode</code> active.</td>
+    </tr>
+    <tr>
+        <td>done(error?: String)</td>
+        <td>Function to call when asynchronous code is done.</td>
+    </tr>
+    <tr>
+        <td>getModifiedContent</td>
+        <td>Function called after execution to get modified content.</td>
+    </tr>
+    <tr>
+        <td>abort</td>
+        <td>Function to abort execution.</td>
+    </tr>
+    <tr>
+        <td>output*</td>
+        <td>
+            <a href="#mjerabek-cz__codebycode__help-output"
+                onclick="document.querySelector(this.hash).scrollIntoView({ behavior: 'smooth' }); return false;">
+                    See table below.
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>show*Dialog</td>
+        <td>
+            <a href="#mjerabek-cz__codebycode__help-dialogs"
+                onclick="document.querySelector(this.hash).scrollIntoView({ behavior: 'smooth' }); return false;">
+                    See table below.
+            </a>
+        </td>
+    </tr>
+    <tr class="mj-codebycode__node-only">
+        <td>loadModule</td>
+        <td>
+            <a href="#mjerabek-cz__codebycode__help-node"
+               onclick="document.querySelector(this.hash).scrollIntoView({ behavior: 'smooth' }); return false;">
+                    See section at the end.
+            </a>
+        </td>
+    </tr>
+</table>
+
+<p>If you want to get some output from the selection or your code the following functions are available:</p>
+<table id="mjerabek-cz__codebycode__help-output">
+    <tr>
+        <th>Function</th>
+        <th>Arguments</th>
+    </tr>
+    <tr>
+        <td>outputString</td>
+        <td>&bull; string: String</td>
+    </tr>
+    <tr>
+        <td>outputObject</td>
+        <td>
+            &bull; object: Object
+            <br>&bull; options?: Object - options for <a href="https://github.com/beautifier/js-beautify">jsBeautify</a>
+        </td>
+    </tr>
+    <tr>
+        <td>outputJSON</td>
+        <td>
+            &bull; object: Object
+            <br>&bull; indent?: Number - number of spaces for indentation
+        </td>
+    </tr>
+    <tr>
+        <td>outputHTML</td>
+        <td>
+            &bull; string: String
+            <br>&bull; options?: Object - options for <a href="https://github.com/beautifier/js-beautify">jsBeautify</a>
+        </td>
+    </tr>
+</table>
+<p>Example:</p>
+<pre>outputString($("h1").text());</pre>
+
+<p>To set options for execution you can use prepared Dialogs:</p>
+<table class="mj-codebycode__dialogs-table" id="mjerabek-cz__codebycode__help-dialogs">
+    <tr>
+        <th>Function</th>
+        <th>Arguments</th>
+        <th>Returns</th>
+    </tr>
+    <tr>
+        <td>showInputDialog</td>
+        <td>
+            &bull; title: String
+            <br>&bull; type?: String - "text" | "range" | any other &lt;input&gt; type;
+            <br>&bull; attrs?: Object - other attributes like {&nbsp;min:&nbsp;1,&nbsp;max:&nbsp;100&nbsp;} 
+        </td>
+        <td>Promise: String | Number</td>
+    </tr>
+    <tr>
+        <td>showSelectDialog</td>
+        <td>
+            &bull; title: String
+            <br>&bull; values: [String] | Object - array of options | object with {&nbsp;value:&nbsp;"Label"&nbsp;} pairs
+        </td>
+        <td>Promise: String</td>
+    </tr>
+    <tr>
+        <td>showRadioDialog</td>
+        <td>
+            &bull; title: String
+            <br>&bull; values: [String] | Object - array of options | object with {&nbsp;value:&nbsp;"Label"&nbsp;} pairs
+        </td>
+        <td>Promise: String</td>
+    </tr>
+    <tr>
+        <td>showCheckboxDialog</td>
+        <td>
+            &bull; title: String
+            <br>&bull; values: [String] | Object - array of options | object with {&nbsp;value:&nbsp;"Label"&nbsp;} pairs
+        </td>
+        <td>Promise: [String]</td>
+    </tr>
+    <tr>
+        <td>showDialog</td>
+        <td>
+            &bull; options: [Object] - array of options for each input
+            <br>{&nbsp;title:&nbsp;String, name:&nbsp;String, type*:&nbsp;String, values?:&nbsp;[String]&nbsp;|&nbsp;Object, attrs?:&nbsp;Object&nbsp;}
+            <br>*type - "select" | "radio" | "checkbox" | "text" | any other &lt;input&gt; type
+        </td>
+        <td>Promise: Object - {&nbsp;name:&nbsp;value&nbsp;}</td>
+    </tr>
+</table>
+<p>Example:</p>
+<pre>const method = await showSelectDialog(
+    "Select method:", ["toUpperCase", "toLowerCase"]
+);
+return CONTENT[method]();</pre>
+
+<p class="mj-codebycode__no-node-only">You can also use any <a href="https://brackets.io/docs/current/modules/brackets.html">Brackets</a>/<a href="https://github.com/phcode-dev/phoenix/wiki/GitHub-API-Index">Phoenix</a> API. Example:</p>
+<p class="mj-codebycode__node-only">If the code is being executed in Phoenix environment, you can also use any <a href="https://brackets.io/docs/current/modules/brackets.html">Brackets</a>/<a href="https://github.com/phcode-dev/phoenix/wiki/GitHub-API-Index">Phoenix</a> API. Example:</p>
+<pre>const FileSystem = brackets.getModule("filesystem/FileSystem");
+const file = FileSystem.getFileForPath(PROJECT_DIR + "content.txt");
+file.read((err, content) => {
+    if (err) return done(err);
+    getModifiedContent = () => content;
+    done();
+});</pre>
+
+<div class="mj-codebycode__node-only" id="mjerabek-cz__codebycode__help-node">
+    <p>In the Node environment you can load modules from NPM with <code>loadModule(name: String, update?: Boolean)</code> function. Only CommonJS modules are supported. If <code>update</code> argument is set to <code>true</code>, it will run <code>npm update</code> on the first run.</p>
+    <p>For any other operations with NPM modules, 
+        <a href="#" onclick="
+            Phoenix.app.openPathInFileBrowser(
+                Phoenix.app.getApplicationSupportDirectory() +
+                (document.getElementById('mjerabek-cz__codebycode__modules-dir')?.innerText ?? '')
+            ); 
+            return false;">
+                open support directory
+        </a>
+        for Phoenix and run commands manually in the <code id="mjerabek-cz__codebycode__modules-dir">mjerabek.cz.codebycode</code> directory.
+    </p>
+    <p>Example:</p>
+<pre>const tinycolor2 = loadModule("tinycolor2");
+const color = tinycolor(CONTENT);
+return color.toHslString();</pre>
+</div>

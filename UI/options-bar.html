@@ -1,0 +1,34 @@
+<form id="mjerabek-cz__codebycode__options-bar-form" class="mj-codebycode__options-bar-form">
+    <p class="mj-codebycode__options-bar-title" id="mjerabek-cz__codebycode__options-bar-title"></p>
+    <div class="mj-codebycode__options-bar-options">
+        <label class="mj-codebycode__checkbox-wrapper" title="Sets Cheerio option xmlMode to true and renders code by xml method.">
+            <input class="mj-codebycode__checkbox" name="xml" type="checkbox">
+            Source is XML
+        </label>
+        <label class="mj-codebycode__checkbox-wrapper" title="Groups the output from each selection into one string.">
+            <input class="mj-codebycode__checkbox" name="groupOutput" type="checkbox">
+            Group output
+        </label>
+        
+        <div class="mj-codebycode__environment mj-codebycode__node-only">
+            <label class="mj-codebycode__radio-wrapper">
+                <input class="mj-codebycode__environment-input mj-codebycode__radio" type="radio" name="env" value="phoenix" checked>
+                Phoenix
+            </label>
+            <label class="mj-codebycode__radio-wrapper">
+                <input class="mj-codebycode__environment-input mj-codebycode__radio" type="radio" name="env" value="node" disabled>
+                Node
+            </label>
+        </div>
+        
+        <button class="mj-codebycode__options-bar-confirm btn primary" id="mjerabek-cz__codebycode__options-bar-confirm" type="button">OK</button>
+    </div>
+    
+    <small class="mj-codebycode__options-bar-info">
+        <span class="mj-space"><kbd>Space</kbd>: toggle.</span>
+        <span class="mj-arrows"><kbd>Arrows</kbd>: toggle.</span>
+        <span class="mj-enter"><kbd>Enter</kbd><span class="mj-enter-by-space">/<kbd>Space</kbd></span>: execute.</span>
+        <span class="mj-tab"><kbd>(Shift+)Tab</kbd>: next(/previous).</span>
+        <span class="mj-esc"><kbd>Esc</kbd>: close.</span>
+    </small>
+</form>

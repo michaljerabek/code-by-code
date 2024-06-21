@@ -1,0 +1,26 @@
+{
+  "name": "mjerabek.cz.codebycode",
+  "title": "Code By Code",
+  "version": "1.0.0",
+  "description": "Edit code with Cheerio or any custom code.",
+  "main": "main.js",
+  "homepage": "https://github.com/michaljerabek/code-by-code",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "brackets": ">=2.0.0"
+  },
+  "keywords": [
+    "cheerio",
+    "edit",
+    "phoenix"
+  ],
+  "author": "Michal Jeřábek",
+  "url": "https://mjerabek.cz",
+  "license": "MIT",
+  "nodeConfig": {
+    "nodeIsRequired": false,
+    "main": "nodeExec.js"
+  }
+}

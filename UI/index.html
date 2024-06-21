@@ -1,0 +1,92 @@
+<form id="mjerabek-cz__codebycode" class="mj-codebycode bottom-panel vert-resizable top-resizer no-focus" autocomplete="off">
+    
+    <div class="mj-codebycode__toolbar toolbar simple-toolbar-layout">
+        <div class="mj-codebycode__title title">Code By Code</div>
+        <a class="mj-codebycode__options" id="mjerabek-cz__codebycode__options" href="#" title="Options"><i class="fa-solid fa-gear"></i></a>
+        <div class="mj-codebycode__exec">
+            <label class="mj-codebycode__checkbox-wrapper" title="Groups the output from each selection into one string.">
+                <input class="mj-codebycode__checkbox" name="groupOutput" type="checkbox">
+                Group output
+            </label>
+            <label class="mj-codebycode__checkbox-wrapper" title="Sets Cheerio option xmlMode to true and renders code by xml method.">
+                <input class="mj-codebycode__checkbox"  name="xml" type="checkbox">
+                Source is XML
+            </label>
+            
+            <button class="mj-codebycode__exec-btn btn primary" id="mjerabek-cz__codebycode__output" type="button">
+                Get Output
+            </button>
+            <button class="mj-codebycode__exec-btn btn primary" id="mjerabek-cz__codebycode__exec" type="button">
+                Execute
+            </button>
+        </div>
+        <a class="mj-codebycode__close close" id="mjerabek-cz__codebycode__close" title="Close" href="#">&times;</a>
+    </div>
+    
+    <div style="display: flex; height: calc(100% - 27px);"><!--27 px is status bar height. If this is not set, the preview code mirror editor gives weird layout issues at times-->
+        <div class="mj-codebycode__layout">
+            <div class="mj-codebycode__panel">
+                <div class="mj-codebycode__search">
+                    <input class="mj-codebycode__search-input"
+                        type="search" name="search" placeholder="Search..." autocomplete="off">
+                    <button class="mj-codebycode__clear-search-btn btn" id="mjerabek-cz__codebycode__clear-search" type="button">
+                        &times;
+                    </button>
+                </div>
+                
+                <div class="mj-codebycode__lists">
+                    <div class="mj-codebycode__list-wrapper">
+                        <p class="mj-codebycode__list-name">Global</p>
+                        <ul class="mj-codebycode__list" id="mjerabek-cz__codebycode__list-global"></ul>
+                    </div>
+                
+                    <div class="mj-codebycode__list-wrapper">
+                        <p class="mj-codebycode__list-name">Local</p>
+                        <ul class="mj-codebycode__list" id="mjerabek-cz__codebycode__list-local"></ul>
+                    </div>
+                
+                    <div class="mj-codebycode__list-wrapper">
+                        <p class="mj-codebycode__list-name">Examples</p>
+                        <ul class="mj-codebycode__list" id="mjerabek-cz__codebycode__list-examples"></ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mj-codebycode__main">
+                <div class="mj-codebycode__name">
+                    <div class="mj-codebycode__name-wrapper">
+                        <label class="mj-codebycode__label" for="mjerabek-cz__codebycode__name-input">Name:</label>
+                        <input class="mj-codebycode__name-input" id="mjerabek-cz__codebycode__name-input" type="text" name="name"
+                            placeholder="Required only if you want to save your code." autocomplete="off">
+                    </div>
+                    <button class="mj-codebycode__save-btn btn primary" id="mjerabek-cz__codebycode__save" type="button" disabled>
+                        Save (global)
+                    </button>
+                </div>
+                
+                <div class="mj-codebycode__editor">
+                    <label class="mj-codebycode__label" for="mjerabek-cz__codebycode__editor-holder">Code:</label>
+                    <div class="mj-codebycode__editor-holder editor-holder" id="mjerabek-cz__codebycode__editor-holder"></div>
+                </div>
+                
+                <div class="mj-codebycode__actions">
+                    <a class="mj-codebycode__help" id="mjerabek-cz__codebycode__help" href="#">Help</a>
+                    <a class="mj-codebycode__docs" href="https://cheerio.js.org/docs/intro">Cheerio docs</a>
+                    <a class="mj-codebycode__clear" href="#" id="mjerabek-cz__codebycode__clear">Clear</a>
+                </div>
+                
+                <div class="mj-codebycode__environment mj-codebycode__node-only">
+                    <label class="mj-codebycode__label">Execution environment:</label>
+                    <label class="mj-codebycode__radio-wrapper">
+                        <input class="mj-codebycode__environment-input mj-codebycode__radio" type="radio" name="env" value="phoenix" checked>
+                        Phoenix
+                    </label>
+                    <label class="mj-codebycode__radio-wrapper">
+                        <input class="mj-codebycode__environment-input mj-codebycode__radio" type="radio" name="env" value="node" disabled>
+                        Node
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

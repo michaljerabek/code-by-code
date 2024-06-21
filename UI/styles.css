@@ -1,0 +1,543 @@
+.dark :is(
+    #mjerabek-cz__codebycode,
+    #mjerabek-cz__codebycode__options-bar-form,
+    .modal.mjerabek-cz__codebycode__code-dialog
+) {
+    color-scheme: dark;
+}
+
+:is(
+    #mjerabek-cz__codebycode, 
+    #mjerabek-cz__codebycode__options-bar-form,
+    .modal.mjerabek-cz__codebycode__help-dialog
+).mj-codebycode-no-node .mj-codebycode__node-only {
+    display: none !important;
+}
+
+:is(
+    #mjerabek-cz__codebycode, 
+    #mjerabek-cz__codebycode__options-bar-form,
+    .modal.mjerabek-cz__codebycode__help-dialog
+):not(.mj-codebycode-no-node) .mj-codebycode__no-node-only {
+    display: none !important;
+}
+
+:is(
+    #mjerabek-cz__codebycode, 
+    #mjerabek-cz__codebycode__options-bar-form
+) .mj-codebycode__label {
+    margin: 0;
+    margin-bottom: 6px;
+}
+
+:is(
+    #mjerabek-cz__codebycode, 
+    #mjerabek-cz__codebycode__options-bar-form,
+    .modal.mjerabek-cz__codebycode__code-dialog
+) :is(.mj-codebycode__radio-wrapper, .mj-codebycode__checkbox-wrapper) {
+    margin: 0;
+}
+
+:is(
+    #mjerabek-cz__codebycode, 
+    #mjerabek-cz__codebycode__options-bar-form,
+    .modal.mjerabek-cz__codebycode__code-dialog
+) :is(.mj-codebycode__radio-wrapper, .mj-codebycode__checkbox-wrapper):has(:disabled) {
+    color: color-mix(in srgb, currentColor, transparent 40%);
+    cursor: default;
+}
+
+    :is(
+        #mjerabek-cz__codebycode, 
+        #mjerabek-cz__codebycode__options-bar-form,
+        .modal.mjerabek-cz__codebycode__code-dialog
+    ) :is(.mj-codebycode__radio-wrapper, .mj-codebycode__checkbox-wrapper) input {
+        top: -1px;
+        margin: 0;
+        margin-right: 4px;
+    }
+
+    :is(
+        #mjerabek-cz__codebycode, 
+        #mjerabek-cz__codebycode__options-bar-form,
+        .modal.mjerabek-cz__codebycode__code-dialog
+    ) :is(.mj-codebycode__radio-wrapper, .mj-codebycode__checkbox-wrapper) :disabled {
+        opacity: 0.5;
+        cursor: default;
+    }
+
+    :is(
+        #mjerabek-cz__codebycode, 
+        #mjerabek-cz__codebycode__options-bar-form,
+        .modal.mjerabek-cz__codebycode__code-dialog
+    ) :is(.mj-codebycode__radio-wrapper) input {
+        top: -2px;
+    }
+
+/*////////////////////////////////////////////////////////*/
+
+#mjerabek-cz__codebycode {
+    margin: 0;
+}
+
+    #mjerabek-cz__codebycode .mj-codebycode__toolbar {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding-left: 16px;
+        container-type: inline-size;
+    }
+
+        #mjerabek-cz__codebycode .mj-codebycode__title {
+            margin-right: -6px;
+        }
+
+        @container (width < 840px) {
+            #mjerabek-cz__codebycode .mj-codebycode__title {
+                display: none;
+            }
+        }
+
+        #mjerabek-cz__codebycode .mj-codebycode__options {
+            color: #333;
+        }
+
+        .dark #mjerabek-cz__codebycode .mj-codebycode__options {
+            color: #ccc;
+        }
+
+        #mjerabek-cz__codebycode .mj-codebycode__exec {
+            display: flex;
+            align-items: center;
+            margin-right: 36px;
+            margin-left: auto;
+        }
+
+        #mjerabek-cz__codebycode .mj-codebycode__exec .mj-codebycode__checkbox-wrapper {
+            padding-left: 1px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #mjerabek-cz__codebycode .mj-codebycode__exec * + .mj-codebycode__checkbox-wrapper {
+            margin-left: 16px;
+        }
+
+        #mjerabek-cz__codebycode .mj-codebycode__exec .mj-codebycode__exec-btn {
+            flex-shrink: 0;
+        }
+
+        #mjerabek-cz__codebycode .mj-codebycode__exec * + .mj-codebycode__exec-btn {
+            margin-left: 8px;
+        }
+
+        #mjerabek-cz__codebycode .mj-codebycode__exec .mj-codebycode__checkbox-wrapper + .mj-codebycode__exec-btn {
+            margin-left: 20px;
+        }
+
+    #mjerabek-cz__codebycode .mj-codebycode__layout {
+        flex: 1 1 100%;
+        display: grid;
+        grid-template-columns: minmax(min-content, min(25%, 400px)) 1fr;
+        grid-template-rows: 100%;
+        container-type: inline-size;
+        height: 100%;
+    }
+
+        #mjerabek-cz__codebycode .mj-codebycode__panel {
+            display: grid;
+            grid-template-rows: min-content minmax(0, 1fr);
+            height: 100%;
+            border-right: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        #mjerabek-cz__codebycode .mj-codebycode__main {
+            display: grid;
+            grid-template-rows: min-content minmax(160px, 1fr);
+            grid-auto-rows: min-content;
+            gap: 16px;
+            padding: 16px;
+            padding-bottom: 42px;
+            padding-right: max(16px, 100cqw - 1400px);
+            margin: 0;
+            overflow: auto;
+        }
+
+/*--------------------------------------------------------------------*/
+/*------------------------------ PANEL -------------------------------*/
+/*--------------------------------------------------------------------*/
+
+#mjerabek-cz__codebycode .mj-codebycode__search {
+    display: flex;
+    padding: 16px;
+    padding-bottom: 8px;
+}
+
+    #mjerabek-cz__codebycode .mj-codebycode__search-input {
+        flex-grow: 1;
+        width: auto;
+    }
+
+    #mjerabek-cz__codebycode .mj-codebycode__clear-search-btn {
+        margin: 0;
+        margin-left: 8px;
+    }
+
+#mjerabek-cz__codebycode .mj-codebycode__lists {
+    height: calc(100% - 42px);
+    padding-bottom: 42px;
+    overflow: auto;
+}
+
+    #mjerabek-cz__codebycode .mj-codebycode__list-wrapper {
+        display: contents;
+    }
+
+    #mjerabek-cz__codebycode .mj-codebycode__list-wrapper:not(:has(.mj-codebycode__item)) {
+        display: none;    
+    }
+
+        #mjerabek-cz__codebycode .mj-codebycode__list-name {
+            position: sticky;
+            top: 0;
+            padding: 12px 16px;
+            padding-bottom: 8px;
+            margin: 0;
+            font-weight: bold;
+            text-transform: uppercase;
+            background-color: #dfe2e2;
+            border-bottom: 1px solid color-mix(in srgb, currentColor, transparent 70%);
+        }
+
+        #mjerabek-cz__codebycode * + .mj-codebycode__list-wrapper .mj-codebycode__list-name {
+            margin-top: 8px;
+        }
+
+        .dark #mjerabek-cz__codebycode .mj-codebycode__list-name {
+            background-color: #2c2c2c;
+        }
+
+        #mjerabek-cz__codebycode .mj-codebycode__list {
+            margin: 0;
+        }
+
+        #mjerabek-cz__codebycode .mj-codebycode__item {
+            display: flex;
+            border-bottom: 1px solid color-mix(in srgb, currentColor, transparent 85%);
+        }
+
+            #mjerabek-cz__codebycode :is(.mj-codebycode__list-remove, .mj-codebycode__list-link) {
+                color: inherit;
+            }
+
+            #mjerabek-cz__codebycode .mj-codebycode__list-link {
+                flex-grow: 1;
+                display: flex;
+                padding: 8px 16px;
+                padding-left: 26px;
+            }
+
+            #mjerabek-cz__codebycode .mj-codebycode__list-remove {
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 38px;
+                padding-bottom: 2px; 
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            :is(#mjerabek-cz__codebycode__list-local, #mjerabek-cz__codebycode__list-examples) .mj-codebycode__list-remove {
+                display: none;
+            }
+
+            #mjerabek-cz__codebycode :is(
+                :is(.mj-codebycode__list-remove, .mj-codebycode__list-link):is(:hover, :focus),
+                .mj-codebycode__list-link:is(:hover, :focus) ~ .mj-codebycode__list-remove
+            ) {
+                text-decoration: none;
+                color: inherit;
+                background-color: color-mix(in srgb, currentColor, transparent 92%);
+            }
+
+            #mjerabek-cz__codebycode :is(
+                :is(.mj-codebycode__list-remove, .mj-codebycode__list-link):active,
+                .mj-codebycode__list-link:active ~ .mj-codebycode__list-remove
+            ) {
+                background-color: color-mix(in srgb, currentColor, transparent 90%);
+            }
+
+        #mjerabek-cz__codebycode .mj-codebycode__item--no-content {
+            font-size: 12px;
+            font-style: italic;
+            padding: 8px 16px;
+            padding-left: 26px;
+        }
+
+/*--------------------------------------------------------------------*/
+/*------------------------------- MAIN -------------------------------*/
+/*--------------------------------------------------------------------*/
+
+#mjerabek-cz__codebycode .mj-codebycode__name {
+    display: flex;
+    align-items: flex-end;
+}
+
+    #mjerabek-cz__codebycode .mj-codebycode__name-wrapper {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        max-width: 450px;
+    }
+
+    #mjerabek-cz__codebycode .mj-codebycode__name-input {
+        width: auto;
+    }
+
+    #mjerabek-cz__codebycode .mj-codebycode__save-btn {
+        margin: 0;
+        margin-left: 8px;
+    }
+
+    #mjerabek-cz__codebycode .mj-codebycode__editor {
+        display: grid;
+        grid-template-rows: min-content minmax(0, 1fr);
+    }
+
+        #mjerabek-cz__codebycode .mj-codebycode__editor-holder {
+            max-width: 100%;
+            min-width: 0;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+    #mjerabek-cz__codebycode .mj-codebycode__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: -8px;
+    }
+
+        #mjerabek-cz__codebycode .mj-codebycode__clear {
+            margin-left: auto;
+        }
+
+    #mjerabek-cz__codebycode .mj-codebycode__environment {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #mjerabek-cz__codebycode .mj-codebycode__environment .mj-codebycode__label {
+        flex-basis: 100%;
+        margin-bottom: 8px;
+    }
+
+    #mjerabek-cz__codebycode .mj-codebycode__environment .mj-codebycode__radio-wrapper:not(:last-child) {
+        margin-right: 24px;
+    }
+
+/*--------------------------------------------------------------------*/
+/*------------------------------ OUTPUT ------------------------------*/
+/*--------------------------------------------------------------------*/
+
+.modal.mjerabek-cz__codebycode__output-dialog .mj-codebycode__output {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal.mjerabek-cz__codebycode__output-dialog .mj-codebycode__no-output {
+    margin: 0;
+    font-size: 15px;
+    line-height: 18px;
+}
+
+.modal.mjerabek-cz__codebycode__output-dialog * + .mj-codebycode__output {
+    margin-top: 6px;
+}
+
+.modal.mjerabek-cz__codebycode__output-dialog .mj-codebycode__no-output + .mj-codebycode__output {
+    margin-top: 16px;
+}
+
+    .modal.mjerabek-cz__codebycode__output-dialog .mj-codebycode__output-input {
+        align-self: stretch;
+        display: block;
+        resize: vertical;
+        width: auto; 
+        height: auto;
+        min-height: 7lh; 
+        margin-bottom: 4px;
+        font-family: monospace; 
+        font-size: 14px;
+        line-height: 1.5; 
+        white-space: pre;
+    }
+
+    .modal.mjerabek-cz__codebycode__output-dialog .mj-codebycode__output-actions {
+        display: flex;
+    }
+
+        .modal.mjerabek-cz__codebycode__output-dialog .mj-codebycode__copy {
+            margin-left: auto;
+        }
+
+/*--------------------------------------------------------------------*/
+/*--------------------------- OPTIONS-BAR ----------------------------*/
+/*--------------------------------------------------------------------*/
+
+#mjerabek-cz__codebycode__options-bar-form {
+    margin: 4px;
+}
+
+    #mjerabek-cz__codebycode__options-bar-form .mj-codebycode__options-bar-title {
+        margin: 0;
+        margin-bottom: 6px;
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    #mjerabek-cz__codebycode__options-bar-form .mj-codebycode__options-bar-options {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px 16px;
+    }
+
+        #mjerabek-cz__codebycode__options-bar-form :is([type="checkbox"], [type="radio"]) {
+            width: 13px;
+            height: 13px;
+        }
+
+        #mjerabek-cz__codebycode__options-bar-form .mj-codebycode__options-bar-confirm {
+            margin-left: 10px;
+        }
+
+        #mjerabek-cz__codebycode__options-bar-form .mj-codebycode__environment {
+            display: flex;
+            align-items: center;
+            gap: 6px 16px;
+        }
+
+            #mjerabek-cz__codebycode__options-bar-form .mj-codebycode__environment .mj-codebycode__radio-wrapper {
+                margin-left: 8px;
+            }
+
+    #mjerabek-cz__codebycode__options-bar-form .mj-codebycode__options-bar-info {
+        margin-top: 4px;
+        display: block;
+        font-size: 10px;
+        font-style: italic;
+        opacity: 0.7;
+    }
+
+    #mjerabek-cz__codebycode__options-bar-form .mj-codebycode__options-bar-info :is(.mj-space, .mj-arrows, .mj-enter-by-space) {
+        display: none;
+    }
+
+    #mjerabek-cz__codebycode__options-bar-form:has(label:active [type="checkbox"], [type="checkbox"]:focus, button:focus) .mj-codebycode__options-bar-info .mj-enter,
+    #mjerabek-cz__codebycode__options-bar-form:has(label:active [type="checkbox"], [type="checkbox"]:focus) .mj-codebycode__options-bar-info .mj-space,
+    #mjerabek-cz__codebycode__options-bar-form:has(button:is(:focus, :active)) .mj-codebycode__options-bar-info .mj-enter-by-space,
+    #mjerabek-cz__codebycode__options-bar-form:has(label:active [type="radio"], [type="radio"]:focus) .mj-codebycode__options-bar-info .mj-arrows {
+        display: inline;
+    }
+
+/*--------------------------------------------------------------------*/
+/*--------------------------- QUICK-EXEC -----------------------------*/
+/*--------------------------------------------------------------------*/
+
+#mjerabek-cz__codebycode__quick-exec {
+    margin: 4px;
+}
+
+    #mjerabek-cz__codebycode__quick-exec .mj-codebycode__quick-exec-title {
+        margin: 0;
+        margin-bottom: 6px;
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    #mjerabek-cz__codebycode__quick-exec .mj-codebycode__quick-exec-info {
+        margin-left: 6px;
+        font-size: 12px;
+        font-style: italic;
+    }
+
+/*--------------------------------------------------------------------*/
+/*---------------------------- CODE-DIALOG ---------------------------*/
+/*--------------------------------------------------------------------*/
+
+.modal.mjerabek-cz__codebycode__code-dialog .mj-codebycode__divider {
+    margin-top: 16px;
+}
+
+.modal.mjerabek-cz__codebycode__code-dialog input[type="color"] {
+    padding: 0;
+    width: 64px;
+    height: auto;
+    aspect-ratio: 16 / 9;
+}
+
+.modal.mjerabek-cz__codebycode__code-dialog select {
+    margin-left: 0;
+}
+
+.modal.mjerabek-cz__codebycode__code-dialog :is(.mj-codebycode__checkbox-grid, .mj-codebycode__radio-grid) {
+    display: grid;
+    grid-template-columns: repeat(3, fit-content(50%));
+    grid-column-gap: 16px;
+    margin-top: 12px;
+    container-type: inline-size;
+}
+
+    .modal.mjerabek-cz__codebycode__code-dialog :is(.mj-codebycode__checkbox-grid, .mj-codebycode__radio-grid) :is(.mj-codebycode__checkbox-wrapper, .mj-codebycode__radio-wrapper) {
+        min-width: 25cqw;
+    }
+
+/*--------------------------------------------------------------------*/
+/*------------------------------- HELP -------------------------------*/
+/*--------------------------------------------------------------------*/
+
+.modal.mjerabek-cz__codebycode__help-dialog .dialog-message {
+    user-select: text;
+    cursor: auto;
+}
+
+    .modal.mjerabek-cz__codebycode__help-dialog .dialog-message > :first-child {
+        margin-top: 0;
+    }
+
+    .modal.mjerabek-cz__codebycode__help-dialog .dialog-message pre {
+        color: inherit;
+        border-color: color-mix(in srgb, currentColor, transparent 88%);
+        background-color: color-mix(in srgb, currentColor, transparent 92%);
+    }
+
+    .modal.mjerabek-cz__codebycode__help-dialog .dialog-message table {
+        width: 100%;
+        border: none;
+        border-collapse: collapse;
+    }
+
+        .modal.mjerabek-cz__codebycode__help-dialog .dialog-message :is(th, td) {
+            padding: 4px 8px;
+            text-align: left;
+            vertical-align: top;
+            border: 1px solid color-mix(in srgb, currentColor, transparent 88%);
+        }
+
+        .modal.mjerabek-cz__codebycode__help-dialog .dialog-message th {
+            background-color: color-mix(in srgb, currentColor, transparent 92%);
+        }
+
+        .modal.mjerabek-cz__codebycode__help-dialog .mj-codebycode__dialogs-table :is(th, td):last-child {
+            width: 1%;
+        }
+
+
+
+
+
+
+
+
