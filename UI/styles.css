@@ -177,6 +177,7 @@
     #mjerabek-cz__codebycode .mj-codebycode__search-input {
         flex-grow: 1;
         width: auto;
+        margin-bottom: 0;
     }
 
     #mjerabek-cz__codebycode .mj-codebycode__clear-search-btn {
@@ -294,6 +295,7 @@
 
     #mjerabek-cz__codebycode .mj-codebycode__name-input {
         width: auto;
+        margin-bottom: 0;
     }
 
     #mjerabek-cz__codebycode .mj-codebycode__save-btn {
