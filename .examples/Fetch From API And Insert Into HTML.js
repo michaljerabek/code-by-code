@@ -8,8 +8,8 @@
  * Usage:
  * Select an HTML template and execute. 
  * Example:
- * <h2 class="title">title property from JSON<h2>
- * <p class="description">description property from JSON<p>
+ * <h2 class="title">title property from JSON</h2>
+ * <p class="description">description property from JSON</p>
  */
 
 const response = await fetch("https://dummyjson.com/products/" + (INDEX + 1));
