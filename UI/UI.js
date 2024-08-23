@@ -24,10 +24,12 @@ define(function (require, exports, module) {
     };
         
     const CLASS = {
+        isActive: "is-active",
         noNode: "mj-codebycode-no-node",
         listWrapper: "mj-codebycode__list-wrapper",
         item: "mj-codebycode__item",
         listLink: "mj-codebycode__list-link",
+        listShowActions: "mj-codebycode__list-show-actions",
         env: "mj-codebycode__environment",
         envInput: "mj-codebycode__environment-input",
         noContentMore: "mj-codebycode__no-content-more"
@@ -48,13 +50,15 @@ define(function (require, exports, module) {
         action: "action",
         name: "name",
         env: "env",
+        cmd: "cmd",
         source: "source"
     };
-        
+
     const ATTR = {
         dataAction: "data-action",
         dataName: "data-name",
         dataEnv: "data-env",
+        dataCmd: "data-cmd",
         dataSource: "data-source"
     };
     
@@ -72,6 +76,8 @@ define(function (require, exports, module) {
     const EditorManager = brackets.getModule("editor/EditorManager");
     const Editor = brackets.getModule("editor/Editor");
     const CodeMirror = brackets.getModule("thirdparty/CodeMirror/lib/codemirror");
+    const CommandManager = brackets.getModule("command/CommandManager");
+    const KeyBindingManager = brackets.getModule("command/KeyBindingManager");
     const cheerio = require("cheerio/standalone");
 
     const Options = require("../Options");
@@ -215,6 +221,15 @@ define(function (require, exports, module) {
         return result.map(item => item.item);
     };
     
+    exports.addCommandShortcut = function addCommandShortcut(cmd) {
+        const command = CommandManager.get(cmd);
+        if (command) {
+            KeyBindingManager.showShortcutSelectionDialog(command);
+        } else {
+            Dialogs.showError("Command not found! Try to add shortcut manually.");
+        }
+    };
+    
     function updateList($list, data = [], noItemTemplate = "") {
         if (!$list?.length) return;
         
@@ -232,12 +247,22 @@ define(function (require, exports, module) {
             data = exports.getSearchResults(data, searchValue);
         }
 
+        const $prevItems = $list.find(`.${CLASS.item}`);
         $list.html(data.map(item => {
             const $item = $(TEMPLATE.item);
             $item[0].dataset[DATA.env] = item.env || OPTIONS.ENV_PHOENIX;
             $item[0].dataset[DATA.source] = item.path || "global";
             $item[0].dataset[DATA.name] = item.name || "Unknown";
+            $item[0].dataset[DATA.cmd] = item.cmd || "";
             $item.find(`.${CLASS.listLink}`).text(item.name || "Unknown");
+            
+            if (!item.path || item.path === "global") {
+                const $prev = $prevItems.filter((i, _item) => _item.dataset[DATA.name] === item.name);
+                if ($prev.find(`.${CLASS.listShowActions}.${CLASS.isActive}`).length) {
+                    $item.find(`.${CLASS.listShowActions}`).addClass(CLASS.isActive);
+                }
+            }
+            
             return $item;
         }));
     }
@@ -247,6 +272,12 @@ define(function (require, exports, module) {
         codeMirror.setValue(code);
         $name(NAME.env).filter(`[value="${env}"]`)
             .prop("checked", true).change();
+    }
+    
+    function hideItemActions(except) {
+        $mainUI?.find(`.${CLASS.listShowActions}`)
+            .filter((i, el) => el !== except)
+            .removeClass(CLASS.isActive);
     }
     
     function initItemActions() {
@@ -262,6 +293,45 @@ define(function (require, exports, module) {
                     more.hidden = action === "less";
                     event.currentTarget.innerHTML = action === "less" ? "…": "Hide";
                     event.currentTarget.dataset[DATA.action] = action === "less" ? "more": "less";
+                    break;
+                }
+                    
+                case "showCodeActions": {
+                    hideItemActions(event.currentTarget);
+                    event.currentTarget.classList.toggle(CLASS.isActive);
+                    break;
+                }
+                    
+                case "createCommand": {
+                    const name = item.dataset[DATA.name];
+                    const cmd = Code.createCommand(name);
+                    if (cmd?.length) {
+                        Dialogs.showCommandCreated(name, cmd);
+                    } else {
+                        Dialogs.showCommandNotCreated(name);
+                    }
+                    break;
+                }
+                    
+                case "removeCommand": {
+                    const name = item.dataset[DATA.name];
+                    Dialogs.showConfirmCommandRemove(name, () => {
+                        Code.removeCommand(name);
+                        Dialogs.showCommandRemoved(name);
+                    });
+                    break;
+                }
+                    
+                case "showCommandId": {
+                    const name = item.dataset[DATA.name];
+                    const cmd = item.dataset[DATA.cmd];
+                    Dialogs.showCommandId(name, cmd);
+                    break;
+                }
+                    
+                case "addCommandShortcut": {
+                    const cmd = item.dataset[DATA.cmd];
+                    exports.addCommandShortcut(cmd);
                     break;
                 }
                     
@@ -405,11 +475,11 @@ define(function (require, exports, module) {
         $saveBtn.on("click", async (event) => {
             const name = getValueFromMain("name");
             if (!$saveBtn.hasClass("danger")) {
-                Code.saveGlobalItem(name, getValueFromMain("code"), getValueFromMain("env"));
+                Code.saveGlobalItem(name, getValueFromMain("code"), undefined, getValueFromMain("env"));
                 return;
             }
             Dialogs.showConfirmRewrite(name, () => {
-                Code.saveGlobalItem(name, getValueFromMain("code"), getValueFromMain("env"));
+                Code.saveGlobalItem(name, getValueFromMain("code"), undefined, getValueFromMain("env"));
             });
         });
     }
@@ -554,6 +624,7 @@ define(function (require, exports, module) {
         codeMirror.setSize("100%", "100%");
         codeMirror.scrollTo(0, 0);
         codeMirror.refresh();
+        hideItemActions();
         setStateByCurrentSelection({ type: "open" });
     };
     

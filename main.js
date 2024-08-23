@@ -234,6 +234,31 @@ define(function (require, exports, module) {
         COMMAND.QUICK_OUTPUT,
         () => execQuick(true)
     );
+    
+    function registerCodeCommand(item) {
+        if (!item?.cmd || !item?.name) return;
+
+        CommandManager.register(
+            item.name,
+            item.cmd,
+            () => {
+                const freshItem = Code.getGlobalItemByName(item.name);
+                if (!freshItem) UI.showError("Code not found!");
+                exec({
+                    ...freshItem,
+                    ...UI.getOptionsByCurrentSelection(),
+                    groupOutput: false
+                });
+            }
+        );
+        CommandManager.get(item.cmd)?.setEnabled(true);
+    }
+    
+    Code.onCommandCreated(registerCodeCommand);
+    
+    Code.getGlobal()
+        .filter(item => !!item?.cmd)
+        .forEach(registerCodeCommand);
 
     UI.onExec(exec);
 

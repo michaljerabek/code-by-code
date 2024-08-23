@@ -97,8 +97,8 @@ define(function (require, exports, module) {
 
     prefs.definePreference(CONFIG.CODE_GLOBAL, "array", [], {
         description: HAS_NODE ?
-            `Array of saved global codes. Format: { "name": String, "code": String, "env?": "phoenix" | "node" }`:
-            `Array of saved global codes. Format: { "name": String, "code": String }`
+            `Array of saved global codes. Format: { "name": String, "code": String, "cmd?": String, "env?": "phoenix" | "node" }`:
+            `Array of saved global codes. Format: { "name": String, "code": String, "cmd?": String }`
     });
     
     prefs.definePreference(CONFIG.CODE_LOCAL, "string", CONFIG.DEFAULT.CODE_LOCAL, {

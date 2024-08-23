@@ -5,7 +5,7 @@ const childProcess = require("child_process");
 const path = require("path");
 const fs = require("fs");
 
-const cheerio = require("./cheerio/standalone.js");
+const cheerio = require("./cheerio/node.js");
 const jsBeautify = require("./js-beautify/standalone.js");
 const htmlBeautify = jsBeautify.html;
 const ____ = {

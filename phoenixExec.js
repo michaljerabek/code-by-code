@@ -4,7 +4,7 @@
 define(function (require, exports, module) {
     "use strict";
     
-    const cheerio = require("cheerio/standalone");
+    require("cheerio/browser");
     const jsBeautify = require("js-beautify/standalone");
     const htmlBeautify = require("js-beautify/standalone").html;
     const ____ = {
@@ -35,6 +35,7 @@ define(function (require, exports, module) {
     const STORAGE = {};
 
     async function exec([...____args] /*CONSTANTS, code, cheerioOptions, processID*/) {
+
         return await new Promise(async (____resolve) => {
             if (____.currentProcessID !== ____args[3]) {
                 ____.currentProcessID = ____args[3];

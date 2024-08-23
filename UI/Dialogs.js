@@ -53,8 +53,8 @@ define(function (require, exports, module) {
             .replace(/'/g, "&#039;");
     }
 
-    exports.getDialog = function getDialog(content, okBtn, cancelBtn, className, title) {
-        const btns = [];
+    exports.getDialog = function getDialog(content, okBtn, cancelBtn, className, title, moreBtns = []) {
+        let btns = [];
         if (okBtn) {
             btns.push(
                 Object.assign({
@@ -73,6 +73,7 @@ define(function (require, exports, module) {
                 typeof cancelBtn === "string" ? { text: cancelBtn }: cancelBtn)
             );
         }
+        btns = [...btns, ...moreBtns];
 
         return Dialogs.showModalDialog(className || CLASS.dialog, TITLE + (title ? `: ${title}`: ""), content, btns);
     };
@@ -123,7 +124,7 @@ define(function (require, exports, module) {
 
     exports.showConfirmRemove = async function showConfirmRemove(name, onOk) {
         const confirmDialog = exports.getDialog(
-            `Do you really want to remove: ${name}?`, 
+            `Do you really want to remove <em>${name}</em>?`, 
             { text: "Remove", className: "danger" }, 
             "Cancel",
             null,
@@ -135,9 +136,75 @@ define(function (require, exports, module) {
         }
     };
 
+    exports.showConfirmCommandRemove = async function showConfirmCommandRemove(name, onOk) {
+        const confirmDialog = exports.getDialog(
+            `Do you really want to remove command for <em>${name}</em>?`, 
+            { text: "Remove", className: "danger" }, 
+            "Cancel",
+            null,
+            "Remove command"
+        );
+        const answer = await confirmDialog.getPromise();
+        if (answer === Dialogs.DIALOG_BTN_OK) {
+            onOk();
+        }
+    };
+
+    exports.showCommandRemoved = async function showCommandRemoved(name) {
+        exports.getDialog(
+            `Command for <em>${name}</em> was removed. It will take full effect after restarting.`, 
+            { text: "OK" }, 
+            "Cancel",
+            null,
+            "Command Removed"
+        );
+    };
+
+    exports.showCommandCreated = async function showCommandCreated(name, cmd) {
+        const shortcutBtn = {
+            className: Dialogs.DIALOG_BTN_CLASS_PRIMARY,
+            id: "shortcut",
+            text: "Add Shortcut"
+        };
+
+        const dialog = exports.getDialog(
+            `Command for <em>${name}</em> was created with id <em style="user-select: all; cursor: pointer; text-decoration: underline dotted" title="Copy" onclick="document.execCommand('copy')">${cmd}</em>. Now you can assign a keyboard shortcut for this code.`, 
+            { text: "OK" }, 
+            "Cancel",
+            null,
+            "Command Created",
+            [shortcutBtn]
+        );
+        
+        const answer = await dialog.getPromise();
+        if (answer === shortcutBtn.id) {
+            UI.addCommandShortcut(cmd);
+        }
+    };
+
+    exports.showCommandId = async function showCommandId(name, cmd) {
+        exports.getDialog(
+            `Command id for <em>${name}</em> is <em style="user-select: all; cursor: pointer; text-decoration: underline dotted" title="Copy" onclick="document.execCommand('copy')">${cmd}</em>.`, 
+            { text: "OK" }, 
+            "Cancel",
+            null,
+            "Command Id"
+        );
+    };
+
+    exports.showCommandNotCreated = async function showCommandNotCreated(name) {
+        const confirmDialog = exports.getDialog(
+            `Command for <em>${name}</em> could not be created.`, 
+            { text: "OK" }, 
+            "Cancel",
+            null,
+            "Command Not Created"
+        );
+    };
+
     exports.showConfirmRewrite = async function showConfirmRewrite(name, onOk) {
         const confirmDialog = exports.getDialog(
-            `Do you really want to rewrite: ${name}?`, 
+            `Do you really want to rewrite <em>${name}</em>?`, 
             { text: "Rewrite", className: "danger" }, 
             "Cancel",
             null,

@@ -196,7 +196,7 @@
     }
 
     #mjerabek-cz__codebycode .mj-codebycode__list-wrapper:not(:has(.mj-codebycode__item)) {
-        display: none;    
+        display: none;
     }
 
         #mjerabek-cz__codebycode .mj-codebycode__list-name {
@@ -224,39 +224,43 @@
         }
 
         #mjerabek-cz__codebycode .mj-codebycode__item {
-            display: flex;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) min-content;
             border-bottom: 1px solid color-mix(in srgb, currentColor, transparent 85%);
         }
 
-            #mjerabek-cz__codebycode :is(.mj-codebycode__list-remove, .mj-codebycode__list-link) {
+            #mjerabek-cz__codebycode :is(.mj-codebycode__list-show-actions, .mj-codebycode__list-link) {
                 color: inherit;
             }
 
             #mjerabek-cz__codebycode .mj-codebycode__list-link {
-                flex-grow: 1;
+                grid-row: 1;
+                grid-column: 1;
                 display: flex;
+                width: calc(100% - 16px - 26px);
                 padding: 8px 16px;
                 padding-left: 26px;
             }
 
-            #mjerabek-cz__codebycode .mj-codebycode__list-remove {
-                flex-shrink: 0;
+            #mjerabek-cz__codebycode .mj-codebycode__list-show-actions {
+                grid-row: 1;
+                grid-column: 2;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 width: 38px;
-                padding-bottom: 2px; 
+                padding-bottom: 10px; 
                 font-size: 16px;
                 font-weight: bold;
             }
 
-            :is(#mjerabek-cz__codebycode__list-local, #mjerabek-cz__codebycode__list-examples) .mj-codebycode__list-remove {
+            :is(#mjerabek-cz__codebycode__list-local, #mjerabek-cz__codebycode__list-examples) :is(.mj-codebycode__list-actions, .mj-codebycode__list-show-actions) {
                 display: none;
             }
 
             #mjerabek-cz__codebycode :is(
-                :is(.mj-codebycode__list-remove, .mj-codebycode__list-link):is(:hover, :focus),
-                .mj-codebycode__list-link:is(:hover, :focus) ~ .mj-codebycode__list-remove
+                :is(.mj-codebycode__list-show-actions, .mj-codebycode__list-link):is(:hover, :focus),
+                .mj-codebycode__list-link:is(:hover, :focus) ~ :is(.mj-codebycode__list-actions, .mj-codebycode__list-show-actions)
             ) {
                 text-decoration: none;
                 color: inherit;
@@ -264,10 +268,42 @@
             }
 
             #mjerabek-cz__codebycode :is(
-                :is(.mj-codebycode__list-remove, .mj-codebycode__list-link):active,
-                .mj-codebycode__list-link:active ~ .mj-codebycode__list-remove
+                :is(.mj-codebycode__list-show-actions, .mj-codebycode__list-link):active,
+                .mj-codebycode__list-link:active ~ :is(.mj-codebycode__list-actions, .mj-codebycode__list-show-actions)
             ) {
                 background-color: color-mix(in srgb, currentColor, transparent 90%);
+            }
+
+            #mjerabek-cz__codebycode .mj-codebycode__list-actions {
+                grid-row: 2;
+                grid-column: 1 / span 2;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 4px 16px;
+                padding: 12px 16px;
+                padding-top: 0;
+                padding-left: 26px;
+                font-size: 12px;
+                line-height: 12px;
+            }
+
+
+            #mjerabek-cz__codebycode .mj-codebycode__list-show-actions:not(.is-active) + .mj-codebycode__list-actions {
+                display: none;
+            }
+
+            #mjerabek-cz__codebycode .mj-codebycode__list-actions-group {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px 8px;
+            }
+
+            #mjerabek-cz__codebycode :is(
+                .mj-codebycode__item:not([data-cmd=""]) [data-action="createCommand"],
+                .mj-codebycode__item[data-cmd=""] :is([data-action="addCommandShortcut"], [data-action="showCommandId"], [data-action="removeCommand"])
+            ) {
+                display: none;
             }
 
         #mjerabek-cz__codebycode .mj-codebycode__item--no-content {
@@ -285,7 +321,7 @@
     display: flex;
     align-items: flex-end;
 }
-
+    
     #mjerabek-cz__codebycode .mj-codebycode__name-wrapper {
         flex-grow: 1;
         display: flex;

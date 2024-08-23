@@ -15,3 +15,7 @@ Edit selected code with [Cheerio](https://cheerio.js.org/) or any other custom c
 
 ## Changelog
 - 1.0.0: Initial release
+- 1.1.0:
+    - Updated to Cheerio 1.0.0
+    - New feature: Commands and keyboard shortcuts for Global code
+    - New example: Insert Snippet

@@ -12,20 +12,22 @@ define(function (require, exports, module) {
     exports.DEV = false;
     exports.HAS_NODE = NodeConnector.isNodeAvailable();
     exports.CMD_PREFIX = "mjerabek.cz.codebycode";
+    exports.CODE_CMD_PREFIX = "mjerabek.cz.codebycode.code";
     exports.PREFS_PREFIX = "mjerabek.cz.codebycode";
     exports.NS = "mjerabek-cz__codebycode";
     exports.TITLE = "Code By Code";
     exports.MODULES_DIR = "mjerabek.cz.codebycode";
 
     exports.CHEERIO_OPTIONS = (data = {}) => ({
-        _useHtmlParser2: true,
         withDomLvl1: true,
         normalizeWhitespace: false,
-        xmlMode: data.xml || false,
-        decodeEntities: false,
-        lowerCaseAttributeNames: false,
-        lowerCaseTags: false,
-        recognizeSelfClosing: true
+        xml: {
+            xmlMode: data.xml || false,
+            lowerCaseAttributeNames: false,
+            lowerCaseTags: false,
+            decodeEntities: false,
+            recognizeSelfClosing: true
+        }
     });
 
     exports.STORAGE = {
