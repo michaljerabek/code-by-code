@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     const Dialogs = brackets.getModule("widgets/Dialogs");
     const Options = require("../Options");
     const Icon = require("UI/Icon");
-    const cheerio = require("cheerio/standalone");
+    require("cheerio/browser");
     let UI = null;
     
     const ID = {

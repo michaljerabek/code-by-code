@@ -1,7 +1,7 @@
 {
   "name": "mjerabek.cz.codebycode",
   "title": "Code By Code",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Edit code with Cheerio or any custom code.",
   "main": "main.js",
   "homepage": "https://github.com/michaljerabek/code-by-code",

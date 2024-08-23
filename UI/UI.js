@@ -78,7 +78,7 @@ define(function (require, exports, module) {
     const CodeMirror = brackets.getModule("thirdparty/CodeMirror/lib/codemirror");
     const CommandManager = brackets.getModule("command/CommandManager");
     const KeyBindingManager = brackets.getModule("command/KeyBindingManager");
-    const cheerio = require("cheerio/standalone");
+    require("cheerio/browser");
 
     const Options = require("../Options");
     const Code = require("../Code");
