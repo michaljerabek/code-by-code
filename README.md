@@ -19,3 +19,6 @@ Edit selected code with [Cheerio](https://cheerio.js.org/) or any other custom c
     - Updated to Cheerio 1.0.0
     - New feature: Commands and keyboard shortcuts for Global code
     - New example: Insert Snippet
+- 1.1.2:
+    - Support Phoenix 4
+    - Fix: HTML unsafe names in Quick Execute
