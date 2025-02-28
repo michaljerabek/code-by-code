@@ -21,6 +21,8 @@ define(function (require, exports, module) {
         quickExec: require("text!UI/quick-exec.html")
     }; 
     
+    const TO_HTML_SAFE_STRING_EL = document.createElement("div");
+
     function getItemsSortedByLastUsage(items) {
         const codeOrder = JSON.parse(localStorage.getItem(STORAGE.CODE_ORDER)) ?? [];
         if (items.length && codeOrder.length) {
@@ -71,8 +73,10 @@ define(function (require, exports, module) {
                     return UI?.getSearchResults(byLastUsage, value, true);
                 },
                 formatter(item) {
+                    TO_HTML_SAFE_STRING_EL.innerHTML = "";
+                    TO_HTML_SAFE_STRING_EL.appendChild(document.createTextNode(item.name));
                     return `<li style="display: flex; justify-content: space-between; gap: 10px;">
-                        <span>${item.name}</span>
+                        <span>${TO_HTML_SAFE_STRING_EL.innerHTML}</span>
                         <small>${item.source}</small>
                     </li>`;
                 },

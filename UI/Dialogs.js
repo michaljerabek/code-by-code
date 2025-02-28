@@ -228,6 +228,7 @@ define(function (require, exports, module) {
             waitDialog.close();
         }
         NotificationUI.createFromTemplate(
+            TITLE,
             "Code was successfully executed.",
             Icon.getIcon().attr("id"),
             {
@@ -239,6 +240,7 @@ define(function (require, exports, module) {
 
     exports.showCancelled = function showCancelled() {
         NotificationUI.createFromTemplate(
+            TITLE,
             "Execution cancelled.",
             Icon.getIcon().attr("id"),
             {
